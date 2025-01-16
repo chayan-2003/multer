@@ -11,7 +11,7 @@ function UserForm() {
   const handleImageChange = (e) => {
     setImages(e.target.files);
   };
-  const API_BASE_URL = import.meta.env.VITE_API_DEV || import.meta.env.VITE_API_PROD;
+  const API_BASE_URL = import.meta.env.VITE_API_PROD ||  'http://localhost:8000';
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();

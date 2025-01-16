@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
+
 const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null); 
-  const API_BASE_URL = import.meta.env.VITE_API_DEV || import.meta.env.VITE_API_PROD;
+  
+  
+  const API_BASE_URL = import.meta.env.VITE_API_PROD || 'http://localhost:8000';
+  
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/dashboard`, {
@@ -69,7 +73,7 @@ const AdminDashboard = () => {
                             {user.image.map((imgPath, index) => (
                               <img
                                 key={index}
-                                src={`http://localhost:5000/${imgPath.replace(/\\/g, '/')}`}
+                                src={`${API_BASE_URL}/${imgPath.replace(/\\/g, '/')}`}
                                 alt={`User ${user.username} Image ${index + 1}`}
                                 className="w-16 h-16 object-cover rounded cursor-pointer"
                                 loading="lazy"
@@ -104,12 +108,22 @@ const AdminDashboard = () => {
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" 
             onClick={handleClosePopup} 
           > 
-            <div className="bg-white "> 
+            <div 
+              className="bg-white p-4 rounded shadow-lg" 
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal content
+            > 
               <img 
-                src={`http://localhost:5000/${selectedImage.replace(/\\/g, '/')}`} 
+                src={`${API_BASE_URL}/${selectedImage.replace(/\\/g, '/')}`} 
                 alt="Enlarged Image" 
-                className="max-w-lg" 
+                className="max-w-lg object-contain" 
               /> 
+              {/* Close Button */}
+              <button 
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                onClick={handleClosePopup}
+              >
+                Close
+              </button>
             </div> 
           </div> 
         )} 
