@@ -25,7 +25,6 @@ const allowedOrigins = [
             callback(new Error(`Origin not allowed by CORS: ${origin}`));
         }
     },
-    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
         'Origin',
