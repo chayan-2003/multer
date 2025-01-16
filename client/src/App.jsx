@@ -3,6 +3,7 @@ import AdminDashboard from  './components/AdminDashboard'
 import UserForm from './components/UserForm';
 import  Home from './pages/Home'
 import Navbar from './components/Navbar';
+import Adminlogin from './components/Adminlogin';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
     <Route path="/user" element={<UserForm/>}/>
     <Route path="/" element={<Home/>}/>
     <Route path="/navbar" element={<Navbar/>}/>
+    <Route path="/adminlogin" element={<Adminlogin/>}/>
    </Routes>
    </BrowserRouter>
   )
