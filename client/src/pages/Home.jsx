@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Navbar from '../components/Navbar';
 const Home = () => {
     return (
+        <div>
+            <Navbar/>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <h1 className="text-4xl font-bold mb-8">Welcome to the Application</h1>
             <div className="flex space-x-4">
@@ -17,6 +19,7 @@ const Home = () => {
                     </button>
                 </Link>
             </div>
+        </div>
         </div>
     );
 };
