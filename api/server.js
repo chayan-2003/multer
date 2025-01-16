@@ -4,7 +4,7 @@ import connectDB from './utils/connectDb.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import submissionRoute from './routes/submission.js';
-import  dashboardRoute from './routes/dashboard.js';
+import dashboardRoute from './routes/dashboard.js';
 import dotenv from 'dotenv';
 
 const app = express();
@@ -12,8 +12,8 @@ dotenv.config();
 connectDB();
 
 const allowedOrigins = [
-    'https://multerapp.netlify.app/' ,
-    process.env.VITE_CLIENT_URL_DEV
+    'https://multerapp.netlify.app',
+    process.env.CLIENT_URL_DEV
 ];
 
 const corsOptions = { 
@@ -40,21 +40,16 @@ const corsOptions = {
 // Apply CORS Middleware
 app.use(cors(corsOptions));
 
-
 app.use(cookieParser());
 app.use(express.json());
 
 app.options('*', cors(corsOptions));
 app.use('/uploads', express.static('uploads'));
 
-
 app.use('/api/submission', submissionRoute);
 app.use('/api', dashboardRoute);
+
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-});
-
-app.listen(port, () => {
-    console.log('Server is running on port 8000');
 });
