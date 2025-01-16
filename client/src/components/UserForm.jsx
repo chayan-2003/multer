@@ -11,7 +11,7 @@ function UserForm() {
   const handleImageChange = (e) => {
     setImages(e.target.files);
   };
-
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -22,7 +22,7 @@ function UserForm() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/submission/create', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/submission/create`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
