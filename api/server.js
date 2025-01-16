@@ -13,7 +13,7 @@ connectDB();
 
 const allowedOrigins = [
     process.env.VITE_CLIENT_URL_PROD,
-   process.env.VITE_CLIENT_URL_DEV
+    process.env.VITE_CLIENT_URL_DEV
    
 ];
 
@@ -33,8 +33,8 @@ const allowedOrigins = [
         'Accept',
         'Authorization'
     ],
-    exposedHeaders: ['Authorization'],
-    maxAge: 86400 // 24 hours
+    Credentials: true,
+    maxAge: 86400 
 };
 
 // Apply CORS Middleware

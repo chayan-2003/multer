@@ -15,6 +15,7 @@ const AdminDashboard = () => {
       const response = await axios({
         method: 'get',
         url: `${API_BASE_URL}/api/dashboard`,
+        
        
     });
       console.log('API Response:', response.data);
