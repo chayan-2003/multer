@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import Navbar from './Navbar';
 function UserForm() {
   const [username, setUsername] = useState('');
   const [socialMediaHandle, setSocialMediaHandle] = useState('');
@@ -38,6 +38,8 @@ function UserForm() {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="bg-gradient-to-br from-purple-500 to-pink-500 min-h-screen flex items-center justify-center"> 
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">
@@ -92,6 +94,7 @@ function UserForm() {
           {submitting && (<div className="text-green-500 text-center">Submitted successfully!</div>)}
         </form>
       </div>
+    </div>
     </div>
   );
 }

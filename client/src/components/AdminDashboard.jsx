@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Navbar from './Navbar';
 const AdminDashboard = () => {
     const [submissions, setSubmissions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +26,8 @@ const AdminDashboard = () => {
     }, []);
 
     return (
+      <div>
+        <Navbar/>
         <div className="min-h-screen bg-gray-100 p-8">
             <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
             {
@@ -87,6 +89,7 @@ const AdminDashboard = () => {
                     </div>
                 )
             }
+        </div>
         </div>
     );
 }
