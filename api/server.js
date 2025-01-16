@@ -12,8 +12,8 @@ dotenv.config();
 connectDB();
 
 const allowedOrigins = [
-    import.meta.env.VITE_CLIENT_URL_PROD,
-    import.meta.env.VITE_CLIENT_URL_DEV
+    process.env.VITE_CLIENT_URL_PROD,
+   process.env.VITE_CLIENT_URL_DEV
    
 ];
 
