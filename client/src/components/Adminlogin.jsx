@@ -17,7 +17,8 @@ function Adminlogin() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    
+    <div className="bg-gradient-to-br from-blue-500 to-purple-500 min-h-screen flex items-center justify-center">
       <form 
         onSubmit={handleSubmit} 
         className="bg-white p-6 rounded shadow-md w-80"

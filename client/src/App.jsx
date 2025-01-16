@@ -4,6 +4,7 @@ import UserForm from './components/UserForm';
 import  Home from './pages/Home'
 import Navbar from './components/Navbar';
 import Adminlogin from './components/Adminlogin';
+import About from './pages/About';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
     <Route path="/" element={<Home/>}/>
     <Route path="/navbar" element={<Navbar/>}/>
     <Route path="/adminlogin" element={<Adminlogin/>}/>
+    <Route path="/about" element={<About/>}/>
    </Routes>
    </BrowserRouter>
   )

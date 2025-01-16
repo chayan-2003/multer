@@ -38,7 +38,7 @@ const AdminDashboard = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen bg-gray-100 p-8">
+      <div className="min-h-screen bg-gray-100 p-8 mt-10">
         <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
         {isLoading ? (
           <div className="flex items-center justify-center">

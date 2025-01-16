@@ -2,20 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    return (
-        <nav className="bg-white shadow-md">
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="flex justify-center">
-                    <Link 
-                        to="/" 
-                        className="py-4 px-2 text-gray-700 font-semibold hover:text-green-500 transition duration-300"
-                    >
-                        Home
-                    </Link>
-                </div>
-            </div>
-        </nav>
-    );
-}
+  return (
+    <nav className="bg-gradient-to-r from-cyan-500 to-blue-500 shadow-md fixed top-0 left-0 right-0 z-50"> 
+      <div className="container mx-auto px-4 py-3 flex justify-between items-start text-white"> 
+        <Link to="/" className="text-sm font-bold flex ">
+          Social Media App
+        </Link>
+        <div className="flex space-x-4"> 
+        <Link to="/" className="hover:text-white"> 
+            Home
+          </Link> 
+          <Link to="/about" className="hover:text-white"> 
+            About
+          </Link> 
+
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;
