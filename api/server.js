@@ -12,19 +12,34 @@ dotenv.config();
 connectDB();
 
 const allowedOrigins = [
-    process.env.VITE_CLIENT_URL_DEV, 
-    process.env.VITE_CLIENT_URL_PROD 
+    'https://multerapp.netlify.app/' ,
+    process.env.VITE_CLIENT_URL_DEV
 ];
 
-
-app.use(cors({
-    origin: allowedOrigins, 
+const corsOptions = { 
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error(`Origin not allowed by CORS: ${origin}`));
+        }
+    },
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, 
-    maxAge: 86400, 
-    exposedHeaders: ['Content-Range', 'X-Content-Range']
-}));
+    allowedHeaders: [
+        'Origin',
+        'X-Requested-With',
+        'Content-Type',
+        'Accept',
+        'Authorization'
+    ],
+    exposedHeaders: ['Authorization'],
+    maxAge: 86400 // 24 hours
+};
+
+// Apply CORS Middleware
+app.use(cors(corsOptions));
+
 
 app.use(cookieParser());
 app.use(express.json());
