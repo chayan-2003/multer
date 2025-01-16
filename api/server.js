@@ -33,7 +33,7 @@ const allowedOrigins = [
         'Accept',
         'Authorization'
     ],
-    Credentials: true,
+    credentials: true,
     maxAge: 86400 
 };
 
