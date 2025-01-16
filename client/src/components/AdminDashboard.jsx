@@ -8,8 +8,7 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null); 
   
-  
-  const API_BASE_URL = import.meta.env.VITE_API_PROD || 'http://localhost:8000';
+  const API_BASE_URL = import.meta.env.PROD ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
   
   const fetchData = async () => {
     try {

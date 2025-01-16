@@ -12,11 +12,12 @@ dotenv.config();
 connectDB();
 
 const allowedOrigins = [
-    'https://multerapp.netlify.app',
-    process.env.CLIENT_URL_DEV
+    import.meta.env.VITE_CLIENT_URL_PROD,
+    import.meta.env.VITE_CLIENT_URL_DEV
+   
 ];
 
-const corsOptions = { 
+ const corsOptions = { 
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
@@ -52,4 +53,4 @@ app.use('/api', dashboardRoute);
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-});
+});  
