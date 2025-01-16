@@ -25,6 +25,7 @@ function UserForm() {
       const response = await axios.post(`${API_BASE_URL}/api/submission/create`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          
         },
       });
       console.log(response);

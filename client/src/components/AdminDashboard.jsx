@@ -13,9 +13,11 @@ const AdminDashboard = () => {
   
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/dashboard`, {
-        withCredentials: true,
-      });
+      const response = await axios({
+        method: 'get',
+        url: `${API_BASE_URL}/api/dashboard`,
+        withCredentials: true 
+    });
       console.log('API Response:', response.data);
       setSubmissions(response.data.data.users);
       setIsLoading(false);
