@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const [submissions, setSubmissions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null); 
+  const [selectedImage, setSelectedImage] = useState(null);
 
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const API_BASE_URL = import.meta.env.MODE === 'production' 
-    ? import.meta.env.VITE_API_URL_PROD 
-    : import.meta.env.VITE_API_URL_DEV;
-
+  const API_BASE_URL =
+    import.meta.env.MODE === 'production'
+      ? import.meta.env.VITE_API_URL_PROD
+      : import.meta.env.VITE_API_URL_DEV;
 
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/dashboard`);
       console.log('API Response:', response.data);
-      
-     
+
+      // Ensure the backend returns { data: { users: [...] } }
       setSubmissions(response.data.data.users);
       setIsLoading(false);
     } catch (err) {
@@ -34,40 +38,50 @@ const AdminDashboard = () => {
   }, []);
 
   const handleImageClick = (imageUrl) => {
-    setSelectedImage(imageUrl); 
+    setSelectedImage(imageUrl);
   };
 
   const handleClosePopup = () => {
-    setSelectedImage(null); 
+    setSelectedImage(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
     <div>
       <Navbar />
       <div className="min-h-screen bg-gray-100 p-8 mt-10">
-        <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
-        {isLoading ? (
-          <div className="flex items-center justify-center h-64">
+        {/* Header Section with Logout Button */}
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-indigo-600">Admin Dashboard</h1>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 flex items-center"
+          >
+            {/* Logout Icon (Optional) */}
             <svg
-              className="animate-spin h-12 w-12 text-indigo-600"
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
+              className="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
               <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v8H4z"
-              ></path>
+                fillRule="evenodd"
+                d="M3 4a1 1 0 011-1h10a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm14.293 9.707a1 1 0 010-1.414L16.414 12H9a1 1 0 110-2h7.414l-1.879-1.879a1 1 0 111.414-1.414l3.586 3.586a1 1 0 010 1.414l-3.586 3.586a1 1 0 01-1.414-1.414L16.414 14H9a1 1 0 110-2h7.414l-1.879-1.879z"
+                clipRule="evenodd"
+              />
             </svg>
+            Logout
+          </button>
+        </div>
+
+        {/* Loading, Error, and Submissions Table */}
+        {isLoading ? (
+          <div className="flex items-center justify-center">
+            <div className="text-xl">Loading...</div>
           </div>
         ) : error ? (
           <div className="flex items-center justify-center">
@@ -99,7 +113,7 @@ const AdminDashboard = () => {
                                 alt={`User ${user.username} Image ${index + 1}`}
                                 className="w-16 h-16 object-cover rounded cursor-pointer"
                                 loading="lazy"
-                                onClick={() => handleImageClick(imgUrl)} 
+                                onClick={() => handleImageClick(imgUrl)}
                               />
                             ))}
                           </div>
@@ -124,32 +138,31 @@ const AdminDashboard = () => {
           </div>
         )}
 
-       
+        {/* Image Modal */}
         {selectedImage && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" 
-            onClick={handleClosePopup} 
-          > 
-            <div 
-              className="bg-white p-4 rounded shadow-lg" 
-              onClick={(e) => e.stopPropagation()} 
-            > 
-              <img 
-                src={selectedImage} 
-                alt="Enlarged Image" 
-                className="max-w-lg object-contain" 
-              /> 
-         
-              <button 
-                className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            onClick={handleClosePopup}
+          >
+            <div
+              className="bg-white p-4 rounded shadow-lg max-w-lg mx-auto"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal content
+            >
+              <img
+                src={selectedImage} // Use the full image URL directly
+                alt="Enlarged Image"
+                className="w-full object-contain"
+              />
+              {/* Close Button */}
+              <button
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200"
                 onClick={handleClosePopup}
               >
                 Close
               </button>
-            </div> 
-          </div> 
-        )} 
-
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

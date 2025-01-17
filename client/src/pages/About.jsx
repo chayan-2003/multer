@@ -20,11 +20,13 @@ const About = () => {
             <li>Ability to upload multiple images seamlessly</li> 
             <li>Image handling using Cloudinary and Multer</li>
             <li>Robust REST APIs for efficient data handling</li>
+            <li>State management using Context API to wrap the Admin Dashboard</li>
           </ul>
           
           <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Technologies Used:</h2>
           <ul className="list-disc ml-6 text-gray-700 mb-6">
             <li><strong>Frontend:</strong> React with Tailwind CSS for a sleek and responsive design</li>
+            <li><strong>State Management:</strong> Context API for managing authentication and state across components</li>
             <li><strong>Backend:</strong> Node.js and Express.js</li>
             <li><strong>Database:</strong> MongoDB for efficient data storage</li>
             <li><strong>Image Upload:</strong> Multer middleware for handling multipart/form-data and Cloudinary for image storage</li>

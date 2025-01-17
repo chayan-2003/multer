@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
+import { useContext } from 'react';
 function Adminlogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate=useNavigate();
-
+  const { login } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
    
     if (username === 'admin' && password === 'admin123') {
-      localStorage.setItem('admin', 'admin');
+    
+      login();
       setMessage('Login successful!');
       navigate('/admin');
+
     } else {
       setMessage('Invalid username or password.');
     }
