@@ -4,11 +4,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    social_media_handel :{
+    social_media_handle :{
         type: String,
         required: true,
     },
-    image : {
+    imageUrls : {
         type: [String],
         required: false,
     }

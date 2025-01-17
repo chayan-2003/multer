@@ -8,17 +8,20 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null); 
   
-  const API_BASE_URL = import.meta.env.PROD ? import.meta.env.VITE_API_URL_PROD : import.meta.env.VITE_API_URL_DEV;
+  // Correct environment variable usage
+  const API_BASE_URL = import.meta.env.MODE === 'production' 
+    ? import.meta.env.VITE_API_URL_PROD 
+    : import.meta.env.VITE_API_URL_DEV;
+
+  // Alternatively, if using a single VITE_API_URL
+  // const API_BASE_URL = import.meta.env.VITE_API_URL;
   
   const fetchData = async () => {
     try {
-      const response = await axios({
-        method: 'get',
-        url: `${API_BASE_URL}/api/dashboard`,
-        
-       
-    });
+      const response = await axios.get(`${API_BASE_URL}/api/dashboard`);
       console.log('API Response:', response.data);
+      
+      // Ensure the backend returns { data: { users: [...] } }
       setSubmissions(response.data.data.users);
       setIsLoading(false);
     } catch (err) {
@@ -32,8 +35,8 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
-  const handleImageClick = (imagePath) => {
-    setSelectedImage(imagePath); 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl); 
   };
 
   const handleClosePopup = () => {
@@ -68,18 +71,18 @@ const AdminDashboard = () => {
                   submissions.map((user) => (
                     <tr key={user._id} className="border-b border-gray-200 hover:bg-gray-100">
                       <td className="py-3 px-6 text-left">{user.username}</td>
-                      <td className="py-3 px-6 text-left">{user.social_media_handel}</td>
+                      <td className="py-3 px-6 text-left">{user.social_media_handle}</td>
                       <td className="py-3 px-6 text-left">
-                        {user.image && user.image.length > 0 ? (
+                        {user.imageUrls && user.imageUrls.length > 0 ? (
                           <div className="flex space-x-2">
-                            {user.image.map((imgPath, index) => (
+                            {user.imageUrls.map((imgUrl, index) => (
                               <img
                                 key={index}
-                                src={`${API_BASE_URL}/${imgPath.replace(/\\/g, '/')}`}
+                                src={imgUrl} // Use the full image URL directly
                                 alt={`User ${user.username} Image ${index + 1}`}
                                 className="w-16 h-16 object-cover rounded cursor-pointer"
                                 loading="lazy"
-                                onClick={() => handleImageClick(imgPath)} 
+                                onClick={() => handleImageClick(imgUrl)} 
                               />
                             ))}
                           </div>
@@ -115,7 +118,7 @@ const AdminDashboard = () => {
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal content
             > 
               <img 
-                src={`${API_BASE_URL}/${selectedImage.replace(/\\/g, '/')}`} 
+                src={selectedImage} // Use the full image URL directly
                 alt="Enlarged Image" 
                 className="max-w-lg object-contain" 
               /> 

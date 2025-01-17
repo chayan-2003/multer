@@ -5,9 +5,14 @@ function Adminlogin() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate=useNavigate();
+  if(localStorage.getItem('admin')){
+    navigate('/admin');
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
+   
     if (username === 'admin' && password === 'admin123') {
+      localStorage.setItem('admin', 'admin');
       setMessage('Login successful!');
       navigate('/admin');
     } else {

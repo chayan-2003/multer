@@ -1,6 +1,6 @@
 import express from "express";
-import { dashboard } from "../controller/dashboard.js";
-
+import {auth} from "../controller/auth.js";
+ 
 const router = express.Router();
-router.get("/", dashboard);
+router.post("/",auth);
 export default router;
