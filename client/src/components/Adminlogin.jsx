@@ -5,9 +5,7 @@ function Adminlogin() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate=useNavigate();
-  if(localStorage.getItem('admin')){
-    navigate('/admin');
-  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
    

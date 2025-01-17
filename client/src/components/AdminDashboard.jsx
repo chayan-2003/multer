@@ -7,21 +7,19 @@ const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null); 
-  
-  // Correct environment variable usage
+
+
   const API_BASE_URL = import.meta.env.MODE === 'production' 
     ? import.meta.env.VITE_API_URL_PROD 
     : import.meta.env.VITE_API_URL_DEV;
 
-  // Alternatively, if using a single VITE_API_URL
-  // const API_BASE_URL = import.meta.env.VITE_API_URL;
-  
+
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/dashboard`);
       console.log('API Response:', response.data);
       
-      // Ensure the backend returns { data: { users: [...] } }
+     
       setSubmissions(response.data.data.users);
       setIsLoading(false);
     } catch (err) {
@@ -49,8 +47,27 @@ const AdminDashboard = () => {
       <div className="min-h-screen bg-gray-100 p-8 mt-10">
         <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
         {isLoading ? (
-          <div className="flex items-center justify-center">
-            <div className="text-xl">Loading...</div>
+          <div className="flex items-center justify-center h-64">
+            <svg
+              className="animate-spin h-12 w-12 text-indigo-600"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8H4z"
+              ></path>
+            </svg>
           </div>
         ) : error ? (
           <div className="flex items-center justify-center">
@@ -107,7 +124,7 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* Popup for enlarged image */}
+       
         {selectedImage && (
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" 
@@ -115,14 +132,14 @@ const AdminDashboard = () => {
           > 
             <div 
               className="bg-white p-4 rounded shadow-lg" 
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal content
+              onClick={(e) => e.stopPropagation()} 
             > 
               <img 
-                src={selectedImage} // Use the full image URL directly
+                src={selectedImage} 
                 alt="Enlarged Image" 
                 className="max-w-lg object-contain" 
               /> 
-              {/* Close Button */}
+         
               <button 
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                 onClick={handleClosePopup}
