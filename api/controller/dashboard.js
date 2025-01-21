@@ -8,9 +8,7 @@ export const dashboard=async(req,res)=>{
             status:'success',
             data:{
                 users
-
-               
-            }
+             }
         });
     }
     catch(err){

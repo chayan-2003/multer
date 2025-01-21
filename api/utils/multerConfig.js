@@ -1,10 +1,6 @@
-
-
 import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import cloudinary from './cloudinaryConfig.js'; 
-
-
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
@@ -17,7 +13,7 @@ const storage = new CloudinaryStorage({
 
 const fileFilter = (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
-        cb(null, true); // Accept image files
+        cb(null, true); 
     } else {
         cb(new Error('Only image files are allowed!'), false);
     }

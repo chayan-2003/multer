@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import upload from './routes/upload.js';
 import dashboard from './routes/dashboard.js';
-import auth from './routes/auth.js';
+
 const app = express();
 dotenv.config();
 connectDB();
@@ -48,7 +48,6 @@ app.options('*', cors(corsOptions));
 
 app.use('/api/dashboard', dashboard);
 app.use('/api/upload', upload);
-app.use('/api/auth', auth);
 
 
 app.use((err, req, res, next) => {

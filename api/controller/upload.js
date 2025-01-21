@@ -13,9 +13,13 @@ export const createSubmission = async (req, res) => {
             return res.status(400).json({ message: 'No files uploaded.' });
         }
 
-        
-        const imageUrls = req.files.map(file => file.path); 
-        console.log('Image URLs:', imageUrls);
+        console.log(req.files);
+        const imageUrls = [];
+        for(let i=0;i<req.files.length;i++)
+        {
+            imageUrls.push(req.files[i].path);
+        }
+        //console.log('Image URLs:', imageUrls);
         const newSubmission = new User({
             username: username,
             social_media_handle: social_media_handle,

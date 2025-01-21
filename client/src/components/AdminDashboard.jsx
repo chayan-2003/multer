@@ -23,7 +23,7 @@ const AdminDashboard = () => {
       const response = await axios.get(`${API_BASE_URL}/api/dashboard`);
       console.log('API Response:', response.data);
 
-      // Ensure the backend returns { data: { users: [...] } }
+
       setSubmissions(response.data.data.users);
       setIsLoading(false);
     } catch (err) {
@@ -54,14 +54,14 @@ const AdminDashboard = () => {
     <div>
       <Navbar />
       <div className="min-h-screen bg-gray-100 p-8 mt-10">
-        {/* Header Section with Logout Button */}
+
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-indigo-600">Admin Dashboard</h1>
           <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 flex items-center"
           >
-            {/* Logout Icon (Optional) */}
+
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-2"
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
           </button>
         </div>
 
-        {/* Loading, Error, and Submissions Table */}
+
         {isLoading ? (
           <div className="flex items-center justify-center">
             <div className="text-xl">Loading...</div>
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* Image Modal */}
+
         {selectedImage && (
           <div
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
@@ -146,14 +146,13 @@ const AdminDashboard = () => {
           >
             <div
               className="bg-white p-4 rounded shadow-lg max-w-lg mx-auto"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal content
             >
               <img
-                src={selectedImage} // Use the full image URL directly
+                src={selectedImage}
                 alt="Enlarged Image"
                 className="w-full object-contain"
               />
-              {/* Close Button */}
+
               <button
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200"
                 onClick={handleClosePopup}
